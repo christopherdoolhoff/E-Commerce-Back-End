@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
     const createCategory = await Category.create(
       req.body
     );
-    res.status(200).json(locationData);
+    res.status(200).json(createCategory);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
-    const updateCategory = await Category.update({
+    const updateCategory = await Category.update(req.body, {
       where: {
         id: req.params.id,
       },
@@ -58,7 +58,6 @@ router.put('/:id', async (req, res) => {
       res.status(404).json({ message: 'No category found with that id!' });
       return;
     }
-
     res.status(200).json(updateCategory);
   } catch (err) {
     res.status(500).json(err);
